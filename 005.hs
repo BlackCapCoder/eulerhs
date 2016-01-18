@@ -10,10 +10,11 @@ import Data.Numbers.Primes
 step = product $ takeWhile (<20) primes
 
 main = print . head
-             . filter isDivisible
+             . filter ((0 ==) . flip mod 144)
              $ (*step) <$> [1..]
 
-isDivisible x = all ((==0) . mod x) [16, 18]
+-- See the comment bellow to see why this function is not used
+isDivisible x = all ((==0) . mod x) [2..20]
 
 {-
   We know that the number is a multiple of the
@@ -46,7 +47,31 @@ isDivisible x = all ((==0) . mod x) [16, 18]
   18: 1,2,3,6,9*,18*
   16: 1,2,4*,8*,16*
 
-  Therefor we only need to check 16 and 18
+  We are left with:
+  16, 18
+
+  16 = 2^4
+  18 = 2 * 3^2
+
+  We know that our number is divisible by 2^1,
+  so we don't need to check for that:
+  2^4, 3^2
+
+  And we might aswell multiply these two numbers together
+  to check them both in a single operation:
+  2^4 * 3^2 = 144
 
   I know, I know .. it's a bit over engineered
+
+
+  The program returns the number 232792560,
+  which has the following prime factors:
+  2^4 * 3^2 * 5 * 7 * 11 * 13 * 17 * 19
+
+  We see that this is all the primes <20,
+  and the number that we discovered.
+
+  The two next numbers are:
+  2^5 * 3^2 * 5 * 7 ..
+  2^4 * 3^3 * 5 * 7 ..
 -}
