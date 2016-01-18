@@ -25,7 +25,7 @@ isDivisible x = all ((==0) . mod x) [2..20]
   4,6,8,9,10,12,14,15,16,18,20
 
   We can remove semi-primes that are not
-  a square of two primes:
+  a square of a single prime:
   6  = 2*3
   10 = 2*5
   14 = 2*7
